@@ -64,10 +64,11 @@ hp_vec = linspace(min(x_train(:,1)), max(x_train(:,1)), 30);
 w_vec = linspace(min(x_train(:,2)), max(x_train(:,2)), 30);
 [w_i,hp_i] = meshgrid(w_vec, hp_vec);
 mpg_i = coeffs(1) + coeffs(2) * hp_i + coeffs(3) * w_i;
+
 figure(1);
 % % %
 subplot(1,2,1)
-plot3(x_train(:,1), x_train(:,2), y_train, 'mo','MarkerFaceColor','magenta')
+plot3(x_train(:,1), x_train(:,2), y_train, 'mo', 'MarkerFaceColor', 'magenta')
 hold on, grid on 
 set(gca, 'FontSize', 12)
 xlabel('\bf{Horsepower}')
@@ -84,7 +85,7 @@ xlabel('\bf{Horsepower}')
 ylabel('\bf{Weight}')
 zlabel('\bf{MPG}')
 colormap winter
-plot3(x_train(:,1), x_train(:,2), y_train, 'mo','MarkerFaceColor','magenta')
+plot3(x_train(:,1), x_train(:,2), y_train, 'mo', 'MarkerFaceColor', 'magenta')
 title('$ \hat{y}(x_{1},x_{2}) = b + w_{1}x_{1} + w_{2}x_{2} $', ...
       'interpreter', 'latex')
 
@@ -95,10 +96,11 @@ hp_vec = linspace(min(x_test(:,1)), max(x_test(:,1)), 30);
 w_vec = linspace(min(x_test(:,2)), max(x_test(:,2)), 30);
 [w_i,hp_i] = meshgrid(w_vec, hp_vec);
 mpg_i = coeffs(1) + coeffs(2) * hp_i + coeffs(3) * w_i;
+
 figure(2);
 % % %
 subplot(1,2,1)
-plot3(x_test(:,1), x_test(:,2), y_test, 'bo','MarkerFaceColor','cyan')
+plot3(x_test(:,1), x_test(:,2), y_test, 'bo', 'MarkerFaceColor', 'cyan')
 hold on, grid on 
 set(gca, 'FontSize', 12)
 xlabel('\bf{Horsepower}')
@@ -115,6 +117,46 @@ xlabel('\bf{Horsepower}')
 ylabel('\bf{Weight}')
 zlabel('\bf{MPG}')
 colormap winter
-plot3(x_test(:,1), x_test(:,2), y_test, 'bo','MarkerFaceColor','cyan')
+plot3(x_test(:,1), x_test(:,2), y_test, 'bo', 'MarkerFaceColor', 'cyan')
 title('$ \hat{y}(x_{1},x_{2}) = b + w_{1}x_{1} + w_{2}x_{2} $', ...
       'interpreter', 'latex')
+
+%--------------%
+% error plot   %
+%--------------%
+figure(3)
+% % %
+subplot(2,2,1)
+%plot(x_test(:,1), abs_err, 'ro')
+plot(x_test(:,1), y_test, 'bo')
+hold on, grid on
+plot(x_test(:,1), y_pred, 'ro')
+set(gca, 'FontSize', 14)
+xlabel('\bf{Horsepower}')
+ylabel('\bf{MPG}')
+legend('\it{MPG test}', '\it{MPG predicted}')
+% % %
+subplot(2,2,2)
+plot(x_test(:,2), y_test, 'bo')
+hold on, grid on
+plot(x_test(:,2), y_pred, 'ro')
+set(gca, 'FontSize', 14)
+xlabel('\bf{Weight}')
+ylabel('\bf{MPG}')
+legend('\it{MPG test}', '\it{MPG predicted}')
+% % %
+subplot(2,2,3)
+plot(x_test(:,1), abs_err, 'mx')
+hold on, grid on
+set(gca, 'FontSize', 14)
+xlabel('\bf{Horsepower}')
+ylabel('\bf{Error}')
+legend('\it{|MPG_{test} - MPG_{predicted}|}')
+% % %
+subplot(2,2,4)
+plot(x_test(:,2), abs_err, 'mx')
+hold on, grid on
+set(gca, 'FontSize', 14)
+xlabel('\bf{Weight}')
+ylabel('\bf{Error}')
+legend('\it{|MPG_{test} - MPG_{predicted}|}')
